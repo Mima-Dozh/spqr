@@ -2,6 +2,7 @@ package provider
 
 import (
 	"context"
+	"errors"
 
 	"github.com/pg-sharding/spqr/pkg/models/tasks"
 

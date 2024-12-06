@@ -2,6 +2,7 @@ package provider
 
 import (
 	"context"
+	"errors"
 
 	"github.com/pg-sharding/spqr/pkg/shard"
 	"github.com/pg-sharding/spqr/pkg/txstatus"
@@ -38,7 +39,7 @@ func (s *ShardServer) AddDataShard(ctx context.Context, request *protos.AddShard
 }
 
 func (s *ShardServer) AddWorldShard(ctx context.Context, request *protos.AddWorldShardRequest) (*emptypb.Empty, error) {
-	panic("implement me")
+	return errors.New("implement me")
 }
 
 // TODO : unit tests
@@ -79,12 +80,12 @@ type CoordShardInfo struct {
 
 // RequestData implements shard.Shardinfo.
 func (c *CoordShardInfo) RequestData() {
-	panic("unimplemented")
+	return errors.New("unimplemented")
 }
 
 // DataPending implements shard.Shardinfo.
 func (c *CoordShardInfo) DataPending() bool {
-	panic("unimplemented")
+	return errors.New("unimplemented")
 }
 
 // Pid implements shard.Shardinfo.

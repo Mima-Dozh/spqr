@@ -28,7 +28,7 @@ const (
 	servicePrincipalProperty = "serviceprincipal"
 )
 
-func NewKerberosModule(base BaseAuthModule) *Kerberos {
+func NewKerberosModule(base BaseAuthModule) (*Kerberos, error) {
 	k := &Kerberos{
 		BaseAuthModule: base,
 	}
@@ -38,7 +38,7 @@ func NewKerberosModule(base BaseAuthModule) *Kerberos {
 		ktFile, _ := ktFileProp.(string)
 		kt, err = keytab.Load(ktFile)
 		if err != nil {
-			panic(err) // If the "krb5.keytab" file is not available the application will show an error message.
+			return nil, err // If the "krb5.keytab" file is not available the application will show an error message.
 		}
 	} else if ktDataProp, ok := k.BaseAuthModule.properties[keyTabDataProperty]; ok {
 		ktData := ktDataProp.(string)
@@ -46,7 +46,7 @@ func NewKerberosModule(base BaseAuthModule) *Kerberos {
 		kt = keytab.New()
 		err = kt.Unmarshal(b)
 		if err != nil {
-			panic(err)
+			return nil, err
 		}
 	}
 	k.kt = kt
@@ -54,7 +54,7 @@ func NewKerberosModule(base BaseAuthModule) *Kerberos {
 		k.servicePrincipal = spProp.(string)
 	}
 
-	return k
+	return k, nil
 }
 
 func (k *Kerberos) Process(cl client.Client) (cred *credentials.Credentials, err error) {

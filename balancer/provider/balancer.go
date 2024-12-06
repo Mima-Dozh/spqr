@@ -2,6 +2,7 @@ package provider
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"sort"
 
@@ -536,7 +537,7 @@ func (b *BalancerImpl) executeTasks(ctx context.Context, task *tasks.BalancerTas
 			case tasks.JoinNone:
 				break
 			default:
-				panic("unknown join type")
+				err = errors.New("unknown join type")
 			}
 			if err != nil {
 				return err

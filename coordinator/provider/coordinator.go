@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/tls"
 	"encoding/binary"
+	"errors"
 	"fmt"
 	"math"
 	"net"
@@ -1855,7 +1856,7 @@ func (qc *qdbCoordinator) AddDataShard(ctx context.Context, shard *datashards.Da
 }
 
 func (qc *qdbCoordinator) AddWorldShard(_ context.Context, _ *datashards.DataShard) error {
-	panic("implement me")
+	return errors.New("implement me")
 }
 
 func (qc *qdbCoordinator) DropShard(ctx context.Context, shardId string) error {
